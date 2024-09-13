@@ -34,14 +34,15 @@
 
         #root {
             display: flex;
-            height: 100%;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .sidebar {
-            width: 300px;
             padding: 20px;
             box-sizing: border-box;
             transition: background-color 0.3s;
+            text-align: center;
         }
 
         .light-mode .sidebar {
@@ -53,9 +54,11 @@
         }
 
         .sidebar img {
-            width: 100%;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             margin-bottom: 20px;
+            object-fit: cover;
         }
 
         .main-content {
@@ -75,7 +78,8 @@
             list-style-type: none;
             padding: 0;
             display: flex;
-            justify-content: flex-start;
+            flex-wrap: wrap;
+            justify-content: center;
             margin: 0;
             transition: background-color 0.3s;
         }
@@ -90,6 +94,8 @@
 
         nav ul li {
             margin: 0;
+            flex-grow: 1;
+            text-align: center;
         }
 
         nav ul li a {
@@ -152,11 +158,11 @@
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 1.8em;
         }
 
         h2 {
-            font-size: 1.5em;
+            font-size: 1.4em;
         }
 
         h3 {
@@ -211,6 +217,50 @@
 
         .theme-toggle:hover {
             background-color: #858484;
+        }
+
+        @media (min-width: 768px) {
+            #root {
+                flex-direction: row;
+            }
+
+            .sidebar {
+                width: 300px;
+                height: 100vh;
+                position: sticky;
+                top: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .sidebar {
+                padding-bottom: 0;
+            }
+
+            .sidebar img {
+                width: 100px;
+                height: 100px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
