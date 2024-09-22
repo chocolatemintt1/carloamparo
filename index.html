@@ -9,6 +9,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script>
         // Disable right-click
         document.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -349,6 +351,57 @@
             .resume-logo text {
                 font-size: 12px;
             }
+
+            /* gauge style in skills */
+            .skills-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin-top: 20px;
+                margin-bottom: 30px;
+            }
+
+            .skill-gauge {
+                background-color: #f0f0f0;
+                padding: 10px;
+                border-radius: 5px;
+            }
+
+            .skill-name {
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .gauge-container {
+                background-color: #e0e0e0;
+                height: 20px;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .gauge-fill {
+                background-color: #4CAF50;
+                height: 100%;
+                transition: width 0.5s ease-in-out;
+            }
+
+            .skill-level {
+                text-align: right;
+                font-size: 0.8em;
+                margin-top: 5px;
+            }
+
+            .dark-mode .skill-gauge {
+                background-color: #2a2a2a;
+            }
+
+            .dark-mode .gauge-container {
+                background-color: #1a1a1a;
+            }
+
+            .dark-mode .gauge-fill {
+                background-color: #66BB6A;
+            }
         }
     </style>
 </head>
@@ -367,6 +420,21 @@
             );
         }
 
+        const SkillGauge = ({ skill, level }) => {
+            const maxLevel = 5;
+            const filledWidth = (level / maxLevel) * 100;
+
+            return (
+                <div className="skill-gauge">
+                    <div className="skill-name">{skill}</div>
+                    <div className="gauge-container">
+                        <div className="gauge-fill" style={{ width: `${filledWidth}%` }}></div>
+                    </div>
+                    <div className="skill-level">{level}/{maxLevel}</div>
+                </div>
+            );
+        };
+
         function App() {
             const [activeSection, setActiveSection] = useState('about');
             const [isDarkMode, setIsDarkMode] = useState(false);
@@ -379,13 +447,31 @@
                 setIsDarkMode(!isDarkMode);
             };
 
+            const skills = [
+                { name: "HTML", level: 2 },
+                { name: "CSS", level: 2 },
+                { name: "JavaScript", level: 2 },
+                { name: "React", level: 1 },
+                { name: "Python", level: 1 },
+                { name: "Git", level: 1 },
+                { name: "C#", level: 3 },
+                { name: "Java", level: 2 },
+                { name: "PHP", level: 2 },
+                { name: "SQL", level: 2 },
+                { name: "Computer Networks", level: 3 },
+                { name: "Hardware Troubleshooting", level: 3 },
+                { name: "Rizz", level: 5 },
+                { name: "Mewing", level: 5 },
+                { name: "Skibidi Level", level: 5 }
+            ];
+
             const renderContent = () => {
                 switch (activeSection) {
                     case 'about':
                         return (
                             <div>
                                 <h2>About Me</h2>
-                                <p>When I'm not painting the internet pretty, catch me sipping on hipster coffee and planning my next foray into the world. GIS Programmer Philippine Statistics Authority I turn coffee in to code, and i code it with a sass. I live, breathe and eat everything related to technology — from design, pixels, through UX to pushing key bits back and forth all day long. You cant catch me, I am constantly in motion, mixing creativity with function one keystroke at a time.</p>
+                                <p>When I'm not busy making the web a prettier place, you can find me sipping artisanal coffee and plotting my next adventure. As a programmer in the GIS Department at the Philippine Statistics Authority, I turn caffeine into code, and I do it with flair. From crafting pixel-perfect designs to ensuring seamless user experiences, my passion for tech knows no bounds. Catch me if you can – I'm always on the move, blending creativity with functionality, one keystroke at a time.</p>
 
                                 <h2>What I'm Doing</h2>
                                 <div className="grid-container">
@@ -403,7 +489,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
                                             <path d="M12 2L1 7v10l11 5 11-5V7L12 2zm-1 15H7v-4h4v4zm6 0h-4v-4h4v4zm-6-6H7V7h4v4zm6 0h-4V7h4v4z" />
                                         </svg>
-                                        <h3>Mobile Legends: Bang Bang Player</h3>
+                                        <h3>Mobile Legends: Bang Bang</h3>
                                         <p>When I'm not coding, I'm conquering the Land of Dawn. As a skilled Mobile Legends player, I bring the same strategic thinking and quick decision-making from gaming into my development work.</p>
                                     </div>
                                 </div>
@@ -412,7 +498,16 @@
                     case 'resume':
                         return (
                             <div>
-                                <h2>Educational Attainment</h2>
+                                <h2>Resume</h2>
+
+                                <h3>Skills</h3>
+                                <div className="skills-container">
+                                    {skills.map((skill, index) => (
+                                        <SkillGauge key={index} skill={skill.name} level={skill.level} />
+                                    ))}
+                                </div>
+
+                                <h3>Educational Attainment</h3>
                                 <div className="resume-grid">
                                     <div className="resume-item">
                                         <div className="resume-logo">
@@ -423,18 +518,14 @@
                                     </div>
                                     <div className="resume-item">
                                         <div className="resume-logo">
-                                            <div className="resume-logo">
-                                                <img src="pnhs_logo.jfif" />
-                                            </div>
+                                            <img src="pnhs_logo.jfif" alt="Polanco National High School logo" />
                                         </div>
                                         <h3>Polanco National High School (2010-2014)</h3>
                                         <p>Completed secondary education at Polanco National High School, where a strong foundation in various subjects was built. Participated in extracurricular activities, developing leadership skills and a well-rounded personality. This period was crucial in shaping academic interests and future career aspirations.</p>
                                     </div>
                                     <div className="resume-item">
                                         <div className="resume-logo">
-                                            <div className="resume-logo">
-                                                <img src="pcs_logo.jfif" />
-                                            </div>
+                                            <img src="pcs_logo.jfif" alt="Polanco Central School logo" />
                                         </div>
                                         <h3>Polanco Central School</h3>
                                         <p>Received primary education at Polanco Central School, laying the groundwork for future academic pursuits. Developed essential skills in reading, writing, and arithmetic, while also fostering curiosity and a love for learning. Engaged in various school activities that promoted social skills and personal growth.</p>
@@ -459,6 +550,7 @@
                         <img src="https://chocolatemintt1.github.io/carloamparo22/pfp_img.jpg" alt="img_carlo" />
                         <h1>Carlo Cabale Amparo</h1>
                         <h2>Geographic Information Systems Specialist</h2>
+                        <p><i>Philippine Statistics Authority - Dipolog</i></p>
                         <p>Email: carloamparo22@gmail.com</p>
                         <p>Phone: 0942 4077 854</p>
                         <p>Location: Olingan, Dipolog City. Zamboanga Del Norte</p>
