@@ -31,6 +31,9 @@ function App() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [message, setMessage] = useState('');
 
+    // Placeholder for API key
+    const MAPS_API_KEY = '';
+
     useEffect(() => {
         document.body.className = isDarkMode ? 'dark-mode' : 'light-mode';
     }, [isDarkMode]);
@@ -195,7 +198,7 @@ function App() {
                         </ul>
                         <h3>Send me a message</h3>
                         <div className="message-box">
-                            <textarea
+                            <textarea 
                                 value={message}
                                 onChange={handleMessageChange}
                                 placeholder="Type your message here..."
@@ -205,19 +208,22 @@ function App() {
                         </div>
                         <h3>My Location</h3>
                         <div className="map-container">
-                            <iframe
-                                width="100%"
-                                height="450"
-                                style={{ border: 0 }}
-                                loading="lazy"
-                                allowFullScreen
-                                src="https://www.google.com/maps/embed/v1/place?q=Dipolog+City,+Zamboanga+del+Norte,+Philippines&key=YOUR_API_KEY"
-                            ></iframe>
-                        </div>
-                        <div className="map-placeholder">
-                            <p>Google Maps is currently unavailable.</p>
-                            <p>We're working on integrating a map to show the location of Olingan, Dipolog City, Zamboanga del Norte.</p>
-                            <p>Check back soon for an interactive map experience!</p>
+                            {MAPS_API_KEY ? (
+                                <iframe
+                                    width="100%"
+                                    height="450"
+                                    style={{border:0}}
+                                    loading="lazy"
+                                    allowFullScreen
+                                    src={`https://www.google.com/maps/embed/v1/place?q=Dipolog+City,+Zamboanga+del+Norte,+Philippines&key=${MAPS_API_KEY}`}
+                                ></iframe>
+                            ) : (
+                                <div className="map-placeholder">
+                                    <p>Google Maps is currently unavailable.</p>
+                                    <p>We're working on integrating a map to show the location of Olingan, Dipolog City, Zamboanga del Norte.</p>
+                                    <p>Check back soon for an interactive map experience!</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 );
