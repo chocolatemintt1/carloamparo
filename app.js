@@ -169,7 +169,7 @@ function App() {
                         </div>
                         <h2>My YouTube Playlist</h2>
                         <p>Check out my curated playlist:</p>
-                        <div className="youtube-section">
+                        <div className="youtube-embed">
                             <iframe
                                 width="560"
                                 height="315"
