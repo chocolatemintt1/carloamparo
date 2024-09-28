@@ -477,24 +477,6 @@ footer a {
         height: 100%;
     }
 
-    .map-placeholder {
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 4px;
-        padding: 20px;
-        text-align: center;
-        height: 450px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .map-placeholder p {
-        margin: 10px 0;
-        color: #0056b3;
-    }
-
     /* message box styles */
     .message-box {
         margin-bottom: 20px;
