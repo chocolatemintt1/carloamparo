@@ -25,6 +25,165 @@ const SkillGauge = ({ skill, level }) => {
     );
 };
 
+const TicTacToe = () => {
+    const [board, setBoard] = useState(Array(9).fill(null));
+    const [xIsNext, setXIsNext] = useState(true);
+    const [gameOver, setGameOver] = useState(false);
+
+    const calculateWinner = (squares) => {
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                return squares[a];
+            }
+        }
+        return null;
+    };
+
+    const getAvailableMoves = (squares) => {
+        return squares.reduce((moves, square, index) => {
+            if (!square) moves.push(index);
+            return moves;
+        }, []);
+    };
+
+    const minimax = (squares, depth, isMaximizing) => {
+        const winner = calculateWinner(squares);
+        if (winner === 'O') return 10 - depth;
+        if (winner === 'X') return depth - 10;
+        if (getAvailableMoves(squares).length === 0) return 0;
+
+        if (isMaximizing) {
+            let bestScore = -Infinity;
+            getAvailableMoves(squares).forEach(move => {
+                squares[move] = 'O';
+                const score = minimax(squares, depth + 1, false);
+                squares[move] = null;
+                bestScore = Math.max(score, bestScore);
+            });
+            return bestScore;
+        } else {
+            let bestScore = Infinity;
+            getAvailableMoves(squares).forEach(move => {
+                squares[move] = 'X';
+                const score = minimax(squares, depth + 1, true);
+                squares[move] = null;
+                bestScore = Math.min(score, bestScore);
+            });
+            return bestScore;
+        }
+    };
+
+    const findBestMove = (squares) => {
+        let bestScore = -Infinity;
+        let bestMove;
+        getAvailableMoves(squares).forEach(move => {
+            squares[move] = 'O';
+            const score = minimax(squares, 0, false);
+            squares[move] = null;
+            if (score > bestScore) {
+                bestScore = score;
+                bestMove = move;
+            }
+        });
+        return bestMove;
+    };
+
+    const makeAIMove = () => {
+        const newBoard = [...board];
+        const bestMove = findBestMove(newBoard);
+        newBoard[bestMove] = 'O';
+        setBoard(newBoard);
+        setXIsNext(true);
+    };
+
+    useEffect(() => {
+        if (!xIsNext && !gameOver) {
+            const timer = setTimeout(() => {
+                makeAIMove();
+            }, 500);
+            return () => clearTimeout(timer);
+        }
+    }, [xIsNext, gameOver]);
+
+    const handleClick = (i) => {
+        if (calculateWinner(board) || board[i] || !xIsNext || gameOver) return;
+        const newBoard = board.slice();
+        newBoard[i] = 'X';
+        setBoard(newBoard);
+        setXIsNext(false);
+    };
+
+    const renderSquare = (i) => (
+        <button className="square" onClick={() => handleClick(i)}>
+            {board[i] === 'X' && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            )}
+            {board[i] === 'O' && (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="8" />
+                </svg>
+            )}
+        </button>
+    );
+
+    const winner = calculateWinner(board);
+    let status;
+    if (winner) {
+        status = `Winner: ${winner}`;
+        if (!gameOver) setGameOver(true);
+    } else if (board.every(Boolean)) {
+        status = "It's a draw!";
+        if (!gameOver) setGameOver(true);
+    } else {
+        status = `Next player: ${xIsNext ? 'X (You)' : 'O (AI)'}`;
+    }
+
+    const resetGame = () => {
+        setBoard(Array(9).fill(null));
+        setXIsNext(true);
+        setGameOver(false);
+    };
+
+    return (
+        <div className="tic-tac-toe">
+            <div className="status">{status}</div>
+            <div className="board">
+                <div className="board-row">
+                    {renderSquare(0)}
+                    {renderSquare(1)}
+                    {renderSquare(2)}
+                </div>
+                <div className="board-row">
+                    {renderSquare(3)}
+                    {renderSquare(4)}
+                    {renderSquare(5)}
+                </div>
+                <div className="board-row">
+                    {renderSquare(6)}
+                    {renderSquare(7)}
+                    {renderSquare(8)}
+                </div>
+            </div>
+            <button className="reset-button" onClick={resetGame}>
+                Reset Game
+            </button>
+        </div>
+    );
+};
 
 function App() {
     const [activeSection, setActiveSection] = useState('about');
@@ -158,7 +317,33 @@ function App() {
                     </div>
                 );
             case 'projects':
-                return <p><i>Code in progress..</i></p>;
+                return (
+                    <div className="projects-section">
+                        <h2>Projects</h2>
+                        <div className="project-item">
+                            <h3>Tic Tac Toe Game</h3>
+                            <p>A simple yet fun Tic Tac Toe game built with React. Try it out below!</p>
+                            <TicTacToe />
+                        </div>
+                        <div className="project-item">
+                            <h3>PSA Video Project</h3>
+                            <p>Check out this informative video from the Philippine Statistics Authority:</p>
+                            <div className="video-container">
+                                <iframe
+                                    src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FPSAgovph%2Fvideos%2F424740093877044%2F&show_text=false&width=560&t=0"
+                                    width="560"
+                                    height="314"
+                                    style={{ border: 'none', overflow: 'hidden' }}
+                                    scrolling="no"
+                                    frameBorder="0"
+                                    allowFullScreen={true}
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                ></iframe>
+                            </div>
+                        </div>
+                        <p><i>More projects coming soon...</i></p>
+                    </div>
+                );
             case 'vlog':
                 return (
                     <div className="blog-section">
@@ -211,7 +396,7 @@ function App() {
                                 style={{ border: 0 }}
                                 loading="lazy"
                                 allowFullScreen
-                                src="https://www.google.com/maps/embed/v1/place?q=Dipolog+City,+Zamboanga+del+Norte,+Philippines&key=YOUR_API_KEY"
+                                src="https://www.google.com/maps/embed/v1/place?q=Dipolog+City,+Zamboanga+del+Norte,+Philippines&key=AIzaSyApdnBLqJeVW4c5tlZ32v8BzVBWyJnYlg"
                             ></iframe>
                         </div>
                     </div>
