@@ -481,7 +481,7 @@ footer a {
     .message-box {
         margin-bottom: 20px;
     }
-    
+
     .message-box textarea {
         width: 100%;
         padding: 10px;
@@ -489,7 +489,7 @@ footer a {
         border: 1px solid #ccc;
         border-radius: 4px;
     }
-    
+
     .message-box button {
         padding: 10px 20px;
         background-color: #007bff;
@@ -498,8 +498,104 @@ footer a {
         border-radius: 4px;
         cursor: pointer;
     }
-    
+
     .message-box button:hover {
         background-color: #0056b3;
+    }
+
+    /* tic tac toe styles */
+    .tic-tac-toe {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .square {
+        width: 80px;
+        height: 80px;
+        font-size: 24px;
+        font-weight: bold;
+        background-color: #f0f0f0;
+        border: 2px solid #333;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .square:hover {
+        background-color: #e0e0e0;
+    }
+
+    .status {
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .reset-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .reset-button:hover {
+        background-color: #45a049;
+    }
+
+    .square svg {
+        transition: all 0.3s ease;
+    }
+
+    .square:hover {
+        background-color: #e0e0e0;
+    }
+
+    @keyframes thinking {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .tic-tac-toe.ai-turn .board {
+        animation: thinking 1s infinite;
+    }
+
+    /* PSA video style */
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 }
