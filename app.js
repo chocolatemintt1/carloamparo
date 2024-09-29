@@ -149,7 +149,7 @@ const TicTacToe = () => {
         status = "It's a draw!";
         if (!gameOver) setGameOver(true);
     } else {
-        status = `Next player: ${xIsNext ? 'X (You)' : 'O (AI)'}`;
+        status = `Next player: ${xIsNext ? 'X (You)' : 'O (Carlo_AI)'}`;
     }
 
     const resetGame = () => {
