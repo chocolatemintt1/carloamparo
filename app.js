@@ -347,13 +347,8 @@ function App() {
             case 'vlog':
                 return (
                     <div className="blog-section">
-                        <h2>My YouTube Channel</h2>
-                        <p>Check out my latest videos on my YouTube channel:</p>
-                        <div className="youtube-embed">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lY27MlineM4?si=J5uk4dv3RCaBKywN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
                         <h2>My YouTube Playlist</h2>
-                        <p>Check out my curated playlist:</p>
+                        <p>Check out my 1RG per day in Honor of Kings playlist:</p>
                         <div className="youtube-embed">
                             <iframe
                                 width="560"
@@ -366,7 +361,13 @@ function App() {
                                 allowFullScreen
                             ></iframe>
                         </div>
-                    </div>
+
+                        <h2>My YouTube Playlist</h2>
+                        <p>Check out my Mobile Legends: Bang Bang playlist:</p>
+                        <div className="youtube-embed">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=t6c9GgSyNmb3BZZJ&amp;list=PLGNF4KPOsdlBjgipdmbx5hxocbKa_v4j5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div >
                 );
             case 'contact':
                 return (
