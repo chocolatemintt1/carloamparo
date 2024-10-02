@@ -347,27 +347,34 @@ function App() {
             case 'vlog':
                 return (
                     <div className="blog-section">
-                        <h2>My YouTube Playlist</h2>
-                        <p>Check out my 1RG per day in Honor of Kings playlist:</p>
-                        <div className="youtube-embed">
-                            <iframe
-                                width="560"
-                                height="315"
-                                src="https://www.youtube.com/embed/videoseries?si=auJs3jQs-UObduV1&amp;list=PLGNF4KPOsdlC17ZDjctGSdChtN3ZKd_vy"
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                allowFullScreen
-                            ></iframe>
+                        <h2>My YouTube Playlists</h2>
+                        <div className="video-grid">
+                            <div className="video-item">
+                                <h3>Honor of Kings Playlist</h3>
+                                <div className="video-container">
+                                    <iframe
+                                        src="https://www.youtube.com/embed/videoseries?si=auJs3jQs-UObduV1&amp;list=PLGNF4KPOsdlC17ZDjctGSdChtN3ZKd_vy"
+                                        title="Honor of Kings Playlist"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            </div>
+                            <div className="video-item">
+                                <h3>Mobile Legends Playlist</h3>
+                                <div className="video-container">
+                                    <iframe
+                                        src="https://www.youtube.com/embed/videoseries?si=t6c9GgSyNmb3BZZJ&amp;list=PLGNF4KPOsdlBjgipdmbx5hxocbKa_v4j5"
+                                        title="Mobile Legends Playlist"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            </div>
                         </div>
-
-                        <h2>My YouTube Playlist</h2>
-                        <p>Check out my Mobile Legends: Bang Bang playlist:</p>
-                        <div className="youtube-embed">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=t6c9GgSyNmb3BZZJ&amp;list=PLGNF4KPOsdlBjgipdmbx5hxocbKa_v4j5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    </div >
+                    </div>
                 );
             case 'contact':
                 return (
