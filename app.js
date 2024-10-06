@@ -321,6 +321,14 @@ function App() {
                     <div className="projects-section">
                         <h2>Projects</h2>
                         <div className="project-item">
+                            <h3>MLBB Team Composition Analyzer Web App</h3>
+                            <p>A web application that helps analyze Mobile Legends: Bang Bang team compositions.</p>
+                            <a href="https://chocolatemintt1.github.io/mlbb/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="project-link">View Project</a>
+                        </div>
+                        <div className="project-item">
                             <h3>Tic Tac Toe Game</h3>
                             <p>A simple yet fun Tic Tac Toe game built with React. Try it out below!</p>
                             <TicTacToe />
